@@ -1,24 +1,54 @@
 {
   "tests": [
     {
-      "name": "Test Logit Values",
+      "name": "Test Sentences",
       "setup": "",
-      "run": "python -m unittest tests/testLogitValues.py",
+      "run": "python -m unittest tests/testSentences.py",
       "input": "",
       "output": "",
       "comparison": "exact",
       "timeout": 1,
-      "points": 3
+      "points": 1
     },
     {
-      "name": "Test Output Table",
+      "name": "Test Names as Proper Nouns",
       "setup": "",
-      "run": "python -m unittest tests/testOutputTable.py",
+      "run": "python -m unittest tests/testNamesProperNouns.py",
       "input": "",
       "output": "",
       "comparison": "exact",
       "timeout": 1,
-      "points": 3
+      "points": 1
+    },
+    {
+      "name": "Test Adjectives",
+      "setup": "",
+      "run": "python -m unittest tests/testAdjectives.py",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test Bar Chart",
+      "setup": "",
+      "run": "python -m unittest tests/testBarChart.py",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test Bar Chart Axes",
+      "setup": "",
+      "run": "python -m unittest tests/testBarChartAxes.py",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
     }
   ]
 }
