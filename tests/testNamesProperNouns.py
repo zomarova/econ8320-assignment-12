@@ -24,6 +24,6 @@ class TestCase(unittest.TestCase):
         typelist = isinstance(names, list)
         test = True
         for i in names:
-            if (i.lower()==i) | (len(i.split(" "))>2):
+            if (str(i).lower()==i) | (len(str(i).split(" "))>2):
                 test = False
         self.assertTrue(test)
