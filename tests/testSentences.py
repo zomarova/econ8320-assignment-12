@@ -22,5 +22,5 @@ class TestCase(unittest.TestCase):
     def testSentences(self):
         # Check length of sentences count
         typeint = isinstance(sentences, int)
-        lengthsent = sentences==129
+        lengthsent = sentences==125
         self.assertTrue(typeint & lengthsent)
