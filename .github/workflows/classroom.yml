@@ -1,25 +1,79 @@
-name: GitHub Classroom Workflow
-
-on:
-  - push
-  - workflow_dispatch
-
+name: Autograding Tests
+'on':
+- workflow_dispatch
+- repository_dispatch
+- push
 permissions:
   checks: write
   actions: read
   contents: read
-
 jobs:
-  build:
-    name: Autograding
+  run-autograding-tests:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
           python-version: '3.9'
-      - run: |
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Install Dependencies
+      run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - uses: education/autograding@v1
+    - name: Test Sentences
+      id: test-sentences
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Sentences
+        setup-command: ''
+        command: python -m unittest tests/testSentences.py
+        timeout: 3
+        max-score: 1
+    - name: Test Names and Proper Nouns
+      id: test-names
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Names and Proper Nouns
+        setup-command: ''
+        command: python -m unittest tests/testNamesProperNouns.py
+        timeout: 3
+        max-score: 1
+    - name: Test Adjectives
+      id: test-adjectives
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Adjectives
+        setup-command: ''
+        command: python -m unittest tests/testAdjectives.py
+        timeout: 3
+        max-score: 1
+    - name: Test Bar Chart
+      id: test-bar-chart
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Bar Chart
+        setup-command: ''
+        command: python -m unittest tests/testBarChart.py
+        timeout: 3
+        max-score: 1
+    - name: Test Bar Chart Axes
+      id: test-bar-axes
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Bar Chart Axes
+        setup-command: ''
+        command: python -m unittest tests/testBarChartAxes.py
+        timeout: 3
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST-SENTENCES_RESULTS: "${{steps.test-sentences.outputs.result}}"
+        TEST-NAMES_RESULTS: "${{steps.test-names.outputs.result}}"
+        TEST-ADJECTIVES_RESULTS: "${{steps.test-adjectives.outputs.result}}"
+        TEST-BAR-CHART_RESULTS: "${{steps.test-bar-chart.outputs.result}}"
+        TEST-BAR-AXES_RESULTS: "${{steps.test-bar-axes.outputs.result}}"
+      with:
+        runners: test-sentences,test-names,test-adjectives,test-bar-chart,test-bar-axes
